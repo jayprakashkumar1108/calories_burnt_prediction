@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <section class="hero animate">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Achieve Your Fitness Goals</h1>
+                <p class="hero-subtitle">Calculate your daily calorie needs with our advanced algorithm and take control of your health</p>
+                <a href="{{ url_for('predict') }}" class="btn btn-primary">Calculate Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title animate">How It Works</h2>
+            <div class="features-grid">
+                <div class="card animate delay-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h3>Enter Your Details</h3>
+                    <p>Provide basic information like age, gender, height, weight, and activity level for accurate calculations.</p>
+                </div>
+                <div class="card animate delay-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3>Get Instant Results</h3>
+                    <p>Our algorithm calculates your BMR, daily calorie needs, and exercise calories burned.</p>
+                </div>
+                <div class="card animate delay-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Track Progress</h3>
+                    <p>Use our results to plan your diet and exercise routine for optimal results.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

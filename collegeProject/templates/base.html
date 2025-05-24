@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Life | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="{{ url_for('home') }}" class="logo">
+                    <i class="fas fa-leaf logo-icon"></i>
+                    <span>HealthyLife</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}" class="nav-link {% if request.path == url_for('home') %}active{% endif %}">Home</a></li>
+                    <li><a href="{{ url_for('predict') }}" class="nav-link {% if request.path == url_for('predict') %}active{% endif %}">Calorie Calculator</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer" id="about">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">HealthyLife</div>
+                    <p>Your partner in health and fitness journey. We provide accurate calorie calculations to help you achieve your goals.</p>
+                </div>
+                <div>
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="{{ url_for('home') }}">Home</a></li>
+                        <li class="footer-link"><a href="{{ url_for('predict') }}">Calculator</a></li>
+                        <li class="footer-link"><a href="#features">Features</a></li>
+                        <li class="footer-link"><a href="#about">About Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li class="footer-link"><a href="mailto:info@healthylife.com">info@healthylife.com</a></li>
+                        <li class="footer-link"><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 HealthyLife. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function validateInput(input, min, max) {
+            const value = parseFloat(input.value);
+            const errorElement = input.nextElementSibling;
+            
+            if (isNaN(value) || value < min || value > max) {
+                input.classList.add('error');
+                errorElement.textContent = `Please enter a value between ${min} and ${max}`;
+                errorElement.classList.add('show');
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorElement.classList.remove('show');
+                return true;
+            }
+        }
+
+        function validateForm() {
+            const ageValid = validateInput(document.getElementById('age'), 5, 120);
+            const heightValid = validateInput(document.getElementById('height'), 50, 250);
+            const weightValid = validateInput(document.getElementById('weight'), 20, 300);
+            const exerciseValid = validateInput(document.getElementById('exercise'), 0, 300);
+            
+            return ageValid && heightValid && weightValid && exerciseValid;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('age').addEventListener('blur', function() {
+                validateInput(this, 5, 120);
+            });
+            document.getElementById('height').addEventListener('blur', function() {
+                validateInput(this, 50, 250);
+            });
+            document.getElementById('weight').addEventListener('blur', function() {
+                validateInput(this, 20, 300);
+            });
+            document.getElementById('exercise').addEventListener('blur', function() {
+                validateInput(this, 0, 300);
+            });
+        });
+    </script>
+</body>
+</html>

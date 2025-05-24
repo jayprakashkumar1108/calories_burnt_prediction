@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Calorie Report | {{ name }}{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="report-section">
+    <div class="container">
+        <div class="report-header">
+            <h1 class="report-title">{{ name }}'s Health Report</h1>
+            <p class="report-date">Generated on {{ date }}</p>
+        </div>
+
+         <div class="calories-burnt">
+            <h2>Calories Burnt</h2>
+            <div class="calories-value">{{ calories }} kcal</div>
+        </div>
+
+        <div class="report-summary">
+            <div class="summary-card">
+                <h2>Summary</h2>
+                <div class="health-score">
+                    <div class="score-circle" style="--score: {{ score }}">
+                        <span class="score-value">{{ score }}%</span>
+                        <span class="score-label">Health Score</span>
+                    </div>
+                </div>
+                <div class="summary-points">
+                    <div class="point {{ calories_status }}">
+                        <i class="fas {{ 'fa-check-circle' if calories_status == 'good' else 'fa-exclamation-triangle' }}"></i>
+                        <span>Calories: {{ calories_status|title }}</span>
+                    </div>
+                    <div class="point {{ heart_status }}">
+                        <i class="fas {{ 'fa-check-circle' if heart_status == 'good' else 'fa-exclamation-triangle' }}"></i>
+                        <span>Heart Rate: {{ heart_status|title }}</span>
+                    </div>
+                    <div class="point {{ temp_status }}">
+                        <i class="fas {{ 'fa-check-circle' if temp_status == 'good' else 'fa-exclamation-triangle' }}"></i>
+                        <span>Body Temp: {{ temp_status|title }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2>Your Health Metrics vs. Ideal</h2>
+            <div class="comparison-grid">
+                <div class="metric-comparison">
+                    <h3>Calorie Intake</h3>
+                    <div class="comparison-bar">
+                        <div class="your-value" style="--width: {{ calories_percent }}">
+                            <span>{{ calories }} kcal</span>
+                        </div>
+                        <div class="ideal-marker" style="--ideal-pos: {{ ideal_calories_percent }}%"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span>Your Value: {{ calories }} kcal</span>
+                        <span>Ideal Range: {{ ideal_calories_min }} - {{ ideal_calories_max }} kcal</span>
+                    </div>
+                </div>
+
+                <div class="metric-comparison">
+                    <h3>Resting Heart Rate</h3>
+                    <div class="comparison-bar">
+                        <div class="your-value" style="--width: {{ heart_percent }}">
+                            <span>{{ heart_rate }} bpm</span>
+                        </div>
+                        <div class="ideal-range"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span>Your Value: {{ heart_rate }} bpm</span>
+                        <span>Ideal Range: 60–100 bpm</span>
+                    </div>
+                </div>
+
+                <div class="metric-comparison">
+                    <h3>Body Temperature</h3>
+                    <div class="comparison-bar">
+                        <div class="your-value" style="--width: {{ temp_percent }}">
+                            <span>{{ body_temp }}°C</span>
+                        </div>
+                        <div class="ideal-range temp-range"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span>Your Value: {{ body_temp }}°C</span>
+                        <span>Ideal Range: 36.1–37.2°C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <h2>Personalized Recommendations</h2>
+            <div class="recommendation-card">
+                <h3>Nutrition</h3>
+                <ul>
+                    <li>Your daily calorie intake is {{ 'within' if calories_status == 'good' else 'outside' }} the recommended range</li>
+                    <li>Consider {{ 'maintaining' if calories_status == 'good' else 'adjusting' }} your diet</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-card">
+                <h3>Exercise</h3>
+                <ul>
+                    <li>Your heart rate is {{ 'normal' if heart_status == 'good' else 'outside normal range' }}</li>
+                    <li>{{ 'Keep up' if heart_status == 'good' else 'Consider adjusting' }} your exercise routine</li>
+                </ul>
+            </div>
+
+            <div class="recommendation-card">
+                <h3>Lifestyle</h3>
+                <ul>
+                    <li>Your body temperature is {{ 'normal' if temp_status == 'good' else 'outside normal range' }}</li>
+                    <li>{{ 'Maintain' if temp_status == 'good' else 'Monitor' }} your health and hydration</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="report-footer">
+            <p>This report is generated based on your inputs and general health guidelines. Always consult a healthcare professional for medical advice.</p>
+            <button class="btn btn-print" onclick="window.print()">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock %}
