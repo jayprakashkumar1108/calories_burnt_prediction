@@ -4,9 +4,7 @@ import pandas as pd
 
 def load_model():
     possible_paths = [
-    'collegeProject/models/xgb_calorie_model.pkl',
-    'xgb_calorie_model.pkl',
-    'collegeProject/models/E_xgb_calorie_model.pkl'
+    'models/xgb_calorie_model.pkl',
     ]
 
     
